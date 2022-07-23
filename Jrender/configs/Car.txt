@@ -1,0 +1,32 @@
+expname = Car
+basedir = ./logs
+datadir = ./data/nerf_synthetic/Car
+dataset_type = blender
+
+no_batching = True
+
+use_viewdirs = True
+white_bkgd = True
+lrate_decay = 500
+
+N_samples = 64
+N_importance = 128
+N_rand = 1024
+
+precrop_iters = 500
+precrop_frac = 0.5
+
+
+testskip=1
+half_res = False
+
+N_iters = 501000
+i_print = 1000
+i_testset = 30000
+i_weights = 30000
+
+near = 5.0
+far = 25.0
+
+i_video = 500000
+i_img = 500000
