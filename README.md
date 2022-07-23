@@ -1,85 +1,61 @@
-# Jittor 草图生成风景比赛 baseline
+# 可微渲染报告——康乐园
 
-| 标题名称包含赛题、方法
-
-![主要结果](https://s3.bmp.ovh/imgs/2022/04/19/440f015864695c92.png)
-
-｜展示方法的流程特点或者主要结果等
+**孔令宇，李宇轩，于沛楠**
 
 ## 简介
 
-| 简单介绍项目背景、项目特点
+本项目包含了第二届计图挑战赛计图 - 可微渲染新视角生成比赛的代码实现。本项目的特点是：对于不同的应用使用了不同的可微渲染算法。对于 Coffee 和 Scar 两个应用，我们选择 JNeRF 算法，对于 Car 我们使用了 Jrender 算法，对于 Easyship 我们使用了 Mip-NeRF 算法。对于 Scarf 我们使用了 JNeRF+RL 的方法。
 
-本项目包含了第二届计图挑战赛计图 - 草图生成风景比赛的代码实现。本项目的特点是：采用了 XX 方法对 YY 处理，取得了 ZZ 的效果。
+## 安装
 
-## 安装 
+本项目可以在一张 3090 显卡上运行
 
-| 介绍基本的硬件需求、运行环境、依赖安装方法
-
-本项目可在 2 张 2080 上运行，训练时间约为 6 小时。
-
-#### 运行环境
+### 运行环境：
 
 - ubuntu 20.04 LTS
-- python >= 3.7
-- jittor >= 1.3.0
+- python=3.8
+- jittor>=1.3.4.13
 
-#### 安装依赖
+### 安装依赖：
 
-执行以下命令安装 python 依赖
+对于 Jrender 执行以下命令完成环境安装：
 
 ```
+cd Jrender
 pip install -r requirements.txt
 ```
 
-#### 预训练模型
-
-预训练模型模型下载地址为 https:abc.def.gh，下载后放入目录 `<root>/weights/` 下。
-
-## 数据预处理
-
-| 介绍数据预处理方法，可选
-
-将数据下载解压到 `<root>/data` 下，执行以下命令对数据预处理：
+对于 JNeRF，执行以下命令安装 NeRF 环境依赖：
 
 ```
-bash scripts/prepross.sh
+cd JNeRF
+cd python
+python -m pip install -e .
 ```
 
-## 训练
-
-｜ 介绍模型训练的方法
-
-单卡训练可运行以下命令：
+对于 Mip-NeRF，执行以下命令完成环境安装：
 
 ```
-bash scripts/train.sh
+cd mip-NeRF
+pip install -r requirements.txt
 ```
 
-多卡训练可以运行以下命令：
+## 训练：
+
+Jrender 算法训练：
 
 ```
-bash scripts/train-multigpu.sh
+python nerf.py --config ./configs/<场景名>.txt
 ```
 
-## 推理
-
-｜ 介绍模型推理、测试、或者评估的方法
-
-生成测试集上的结果可以运行以下命令：
+JNeRF 算法训练：
 
 ```
-bash scripts/test.sh
+python tools/run_net.py --config-file ./projects/ngp/configs/ngp_comp.py
 ```
 
-## 致谢
+Mip-NeRF 算法训练：
 
-| 对参考的论文、开源库予以致谢，可选
-
-此项目基于论文 *A Style-Based Generator Architecture for Generative Adversarial Networks* 实现，部分代码参考了 [jittor-gan](https://github.com/Jittor/gan-jittor)。
-
-## 注意事项
-
-点击项目的“设置”，在Description一栏中添加项目描述，需要包含“jittor”字样。同时在Topics中需要添加jittor。
-
-![image-20220419164035639](https://s3.bmp.ovh/imgs/2022/04/19/6a3aa627eab5f159.png)
+```
+python train.py --scene <场景名>
+```
